@@ -2,6 +2,7 @@ import {
 	IS_PLAYER_VISIBLE_ALL,
 	IS_PLAYER_VISIBLE_NONE,
 } from "./dmscreen-initiativetracker-statcolumns.js";
+import {InitiativeTrackerGroupAdd} from "./dmscreen-initiativetracker-groupadd.js";
 import {InitiativeTrackerConditionAdd} from "./dmscreen-initiativetracker-conditionadd.js";
 import {InitiativeTrackerUi} from "./dmscreen-initiativetracker-ui.js";
 import {InitiativeTrackerConst} from "./dmscreen-initiativetracker-consts.js";
@@ -175,6 +176,26 @@ class _RenderableCollectionRowDataActive extends RenderableCollectionRowDataBase
 			wrpRows: e_($wrpConds[0]),
 		});
 		comp._addHookBase("conditions", () => collectionConditions.render())();
+	}
+
+	/* ----- */
+
+	_pPopulateRow_group ({comp, $wrpLhs}) {
+		const $btnGroup = $(`<button class="ve-btn ve-btn-default ve-btn-xs dm-init__row-btn dm-init-lockable dm-init__btn_group" title="Add to group" tabindex="-1" style="background-color: #ff0000"></button>`)
+			.on("click", async () => {
+				const compAdd = new InitiativeTrackerGroupAdd({conditionsCustom: MiscUtil.copyFast(this._comp._state.conditionsCustom)});
+				const [isDataEntered, conditionToAdd] = await compAdd.pGetShowModalResults();
+
+				// Always update the set of custom conditions
+				this._comp._state.conditionsCustom = compAdd.getConditionsCustom();
+
+				if (!isDataEntered) return;
+
+				comp._state.conditions = [
+					...comp._state.conditions,
+					conditionToAdd,
+				];
+			}).appendTo($wrpLhs);
 	}
 
 	/* ----- */

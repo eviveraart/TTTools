@@ -76,6 +76,8 @@ export class RenderableCollectionRowDataBase extends RenderableCollectionAsyncGe
 
 		const $wrpLhs = $(`<div class="dm-init__row-lhs"></div>`).appendTo($wrpRow);
 
+		this._pPopulateRow_group({comp, $wrpLhs});
+
 		this._pPopulateRow_player({comp, $wrpLhs, isMon});
 		this._pPopulateRow_monster({comp, $wrpLhs, isMon, mon, fluff});
 

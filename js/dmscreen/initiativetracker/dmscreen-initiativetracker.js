@@ -151,7 +151,7 @@ export class InitiativeTracker extends BaseComponent {
 	}
 
 	_render_$getWrpFooter ({doUpdateExternalStates}) {
-		const $btnAdd = $(`<button class="ve-btn ve-btn-primary ve-btn-xs dm-init-lockable" title="Add Player"><span class="glyphicon glyphicon-plus"></span></button>`)
+		const $btnAdd = $(`<button class="ve-btn ve-btn-primary ve-btn-xs dm-init-lockable" title="z"><span class="glyphicon glyphicon-plus"></span></button>`)
 			.on("click", async () => {
 				if (this._state.isLocked) return;
 				this._state.rows = [
